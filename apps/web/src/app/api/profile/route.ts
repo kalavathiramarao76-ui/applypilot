@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { getSession, hashPassword } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 import { profiles } from "@applypilot/shared";
 import { eq } from "@applypilot/shared";
 
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const [user] = await db
+    const [profile] = await db
       .select({
         id: profiles.id,
         email: profiles.email,
@@ -31,13 +31,13 @@ export async function GET(request: Request) {
       .where(eq(profiles.id, session.userId))
       .limit(1);
 
-    if (!user) {
-      return Response.json({ error: "User not found" }, { status: 404 });
+    if (!profile) {
+      return Response.json({ error: "Profile not found" }, { status: 404 });
     }
 
-    return Response.json({ user });
+    return Response.json({ profile });
   } catch (error) {
-    console.error("Me error:", error);
+    console.error("Profile GET error:", error);
     return Response.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -54,8 +54,8 @@ export async function PUT(request: Request) {
 
     const body = await request.json();
 
-    const updateData: Record<string, unknown> = {};
-    const allowedFields = [
+    const allowedFields: Record<string, unknown> = {};
+    const updatable = [
       "fullName",
       "headline",
       "summary",
@@ -68,28 +68,22 @@ export async function PUT(request: Request) {
       "remotePreference",
     ];
 
-    for (const key of allowedFields) {
+    for (const key of updatable) {
       if (key in body) {
-        updateData[key] = body[key];
+        allowedFields[key] = body[key];
       }
     }
 
-    if (body.newPassword && typeof body.newPassword === "string") {
-      updateData.passwordHash = await hashPassword(body.newPassword);
-    }
-
-    if (Object.keys(updateData).length === 0) {
+    if (Object.keys(allowedFields).length === 0) {
       return Response.json(
         { error: "No valid fields to update" },
         { status: 400 }
       );
     }
 
-    updateData.updatedAt = new Date();
-
     const [updated] = await db
       .update(profiles)
-      .set(updateData)
+      .set({ ...allowedFields, updatedAt: new Date() })
       .where(eq(profiles.id, session.userId))
       .returning({
         id: profiles.id,
@@ -97,9 +91,65 @@ export async function PUT(request: Request) {
         fullName: profiles.fullName,
       });
 
-    return Response.json({ user: updated });
+    return Response.json({ profile: updated });
   } catch (error) {
-    console.error("Me PUT error:", error);
+    console.error("Profile PUT error:", error);
+    return Response.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const session = await getSession(request);
+    if (!session) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json();
+
+    const allowedFields: Record<string, unknown> = {};
+    const updatable = [
+      "fullName",
+      "headline",
+      "summary",
+      "skills",
+      "experiences",
+      "education",
+      "preferredJobTitles",
+      "targetSalaryRange",
+      "location",
+      "remotePreference",
+    ];
+
+    for (const key of updatable) {
+      if (key in body) {
+        allowedFields[key] = body[key];
+      }
+    }
+
+    if (Object.keys(allowedFields).length === 0) {
+      return Response.json(
+        { error: "No valid fields to update" },
+        { status: 400 }
+      );
+    }
+
+    const [updated] = await db
+      .update(profiles)
+      .set({ ...allowedFields, updatedAt: new Date() })
+      .where(eq(profiles.id, session.userId))
+      .returning({
+        id: profiles.id,
+        email: profiles.email,
+        fullName: profiles.fullName,
+      });
+
+    return Response.json({ profile: updated });
+  } catch (error) {
+    console.error("Profile PATCH error:", error);
     return Response.json(
       { error: "Internal server error" },
       { status: 500 }

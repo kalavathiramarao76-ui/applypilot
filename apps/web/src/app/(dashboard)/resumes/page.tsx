@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Plus, FileText, Calendar } from "lucide-react";
+import Link from "next/link";
 import type { Resume } from "@applypilot/shared";
 
 export default function ResumesPage() {
@@ -37,10 +38,12 @@ export default function ResumesPage() {
             Manage your resumes and create tailored versions
           </p>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          New Resume
-        </Button>
+        <Link href="/resumes/new">
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            New Resume
+          </Button>
+        </Link>
       </div>
 
       {loading ? (
@@ -52,17 +55,19 @@ export default function ResumesPage() {
             <p className="text-gray-500 dark:text-gray-400 mb-4">
               No resumes yet. Upload your first resume to get started!
             </p>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              Create Resume
-            </Button>
+            <Link href="/resumes/new">
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                Create Resume
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {resumes.map((resume) => (
+            <Link key={resume.id} href={`/resumes/${resume.id}`}>
             <Card
-              key={resume.id}
               className="hover:shadow-md transition-all hover:border-blue-200 dark:hover:border-blue-800 cursor-pointer"
             >
               <CardContent className="p-6">
@@ -92,6 +97,7 @@ export default function ResumesPage() {
                 )}
               </CardContent>
             </Card>
+            </Link>
           ))}
         </div>
       )}

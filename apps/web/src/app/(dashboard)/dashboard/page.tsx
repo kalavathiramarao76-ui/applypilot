@@ -6,6 +6,7 @@ import { applications, jobs } from "@applypilot/shared";
 import { eq, desc, inArray } from "@applypilot/shared";
 import { StatsCard } from "@/components/stats-card";
 import { ApplicationCard } from "@/components/application-card";
+import { Recommendations } from "@/components/recommendations";
 import { Briefcase, TrendingUp, Target, BarChart3 } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -98,6 +99,8 @@ export default async function DashboardPage() {
           icon={Target}
         />
       </div>
+
+      <Recommendations />
 
       <div>
         <h2 className="text-xl font-semibold mb-4">Recent Applications</h2>

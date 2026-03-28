@@ -9,6 +9,16 @@ import {
   User,
   LogOut,
   Rocket,
+  Building2,
+  DollarSign,
+  Users,
+  Settings,
+  Columns3,
+  Zap,
+  MessageSquare,
+  Mail,
+  Target,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -16,8 +26,18 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/applications", label: "Applications", icon: Briefcase },
+  { href: "/board", label: "Board View", icon: Columns3 },
   { href: "/resumes", label: "Resumes", icon: FileText },
+  { href: "/interview", label: "Interview Prep", icon: MessageSquare },
+  { href: "/emails", label: "Email Templates", icon: Mail },
+  { href: "/score", label: "Resume Score", icon: Target },
+  { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/quick-apply", label: "Quick Apply", icon: Zap },
+  { href: "/company", label: "Company Intel", icon: Building2 },
+  { href: "/salary", label: "Salary", icon: DollarSign },
+  { href: "/networking", label: "Networking", icon: Users },
   { href: "/profile", label: "Profile", icon: User },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 interface SidebarProps {
