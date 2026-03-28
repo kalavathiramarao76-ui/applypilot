@@ -72,7 +72,8 @@ export default function LoginPage() {
       router.refresh();
     } catch (err: any) {
       if (err.code !== "auth/popup-closed-by-user") {
-        setError("Google sign-in failed. Please try again.");
+        setError(err.code ? `${err.code}: ${err.message}` : "Google sign-in failed. Please try again.");
+        console.error("Google auth error:", err);
       }
     } finally {
       setGoogleLoading(false);

@@ -2,6 +2,12 @@ import { db } from "@/lib/db";
 import { createToken } from "@/lib/auth";
 import { profiles } from "@zypply/shared";
 import { eq } from "@zypply/shared";
+import { jwtVerify, createRemoteJWKSet } from "jose";
+
+const FIREBASE_PROJECT_ID = "zypply-39dcd";
+const GOOGLE_JWKS = createRemoteJWKSet(
+  new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com")
+);
 
 export async function POST(request: Request) {
   try {
@@ -11,17 +17,15 @@ export async function POST(request: Request) {
       return Response.json({ error: "idToken is required" }, { status: 400 });
     }
 
-    // Verify the Firebase ID token via Google's public token info endpoint
-    const verifyRes = await fetch(
-      `https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`
-    );
+    // Verify the Firebase ID token using Google's public JWKS
+    const { payload } = await jwtVerify(idToken, GOOGLE_JWKS, {
+      issuer: `https://securetoken.google.com/${FIREBASE_PROJECT_ID}`,
+      audience: FIREBASE_PROJECT_ID,
+    });
 
-    if (!verifyRes.ok) {
-      return Response.json({ error: "Invalid token" }, { status: 401 });
-    }
-
-    const tokenData = await verifyRes.json();
-    const { email, name, sub: uid, picture } = tokenData;
+    const email = payload.email as string;
+    const name = (payload.name as string) || (payload.email as string)?.split("@")[0];
+    const uid = payload.sub as string;
 
     if (!email) {
       return Response.json({ error: "Email not found in Google account" }, { status: 400 });
@@ -35,7 +39,7 @@ export async function POST(request: Request) {
       .limit(1);
 
     let userId: string;
-    let fullName = name || email.split("@")[0];
+    let fullName = name;
 
     if (existing.length > 0) {
       userId = existing[0].id;
