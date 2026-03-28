@@ -2,8 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { jobs, aiGenerations } from "@applypilot/shared";
 import { eq } from "@applypilot/shared";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -56,10 +55,9 @@ Respond in this exact JSON format:
   "suggestedAnswer": "A model answer that demonstrates best practices"
 }`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 2048,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 2048,
     });
 
     let result;

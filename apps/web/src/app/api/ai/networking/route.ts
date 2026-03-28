@@ -1,8 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { aiGenerations } from "@applypilot/shared";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 const MESSAGE_TYPES = [
   "linkedin-connection",
@@ -62,10 +61,9 @@ Return strict JSON:
 
 Make the message authentic, warm, and professional. Avoid being overly salesy or generic. Keep the main message concise - under 150 words for LinkedIn, under 250 words for emails.`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 2048,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 2048,
     });
 
     let result;

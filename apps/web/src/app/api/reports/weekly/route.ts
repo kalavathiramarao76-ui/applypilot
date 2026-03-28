@@ -2,8 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { applications, jobs, aiGenerations } from "@applypilot/shared";
 import { eq, and, gte, desc } from "@applypilot/shared";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function GET(request: Request) {
   try {
@@ -172,9 +171,8 @@ export async function GET(request: Request) {
     };
 
     try {
-      const { text } = await generateText({
-        model: anthropic("claude-sonnet-4-20250514"),
-        prompt: `You are a supportive career coach. Based on this user's weekly job search stats, provide brief motivational insights and specific action items.
+      const text = await generateAI({
+        messages: [{ role: "user", content: `You are a supportive career coach. Based on this user's weekly job search stats, provide brief motivational insights and specific action items.
 
 Stats: ${JSON.stringify(statsContext)}
 
@@ -182,8 +180,8 @@ Respond in JSON:
 {
   "insights": ["2-3 specific insights about their search pattern"],
   "actionItems": ["3-4 specific action items for next week"]
-}`,
-        maxOutputTokens: 1024,
+}` }],
+        maxTokens: 1024,
       });
 
       const jsonMatch = text.match(/\{[\s\S]*\}/);

@@ -1,6 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -33,10 +32,9 @@ Write a compelling 2-3 sentence professional summary that:
 
 Return ONLY the summary text, no quotes or JSON.`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 512,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 512,
     });
 
     return Response.json({ summary: text.trim() });

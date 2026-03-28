@@ -2,8 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { profiles, aiGenerations } from "@applypilot/shared";
 import { eq } from "@applypilot/shared";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -71,10 +70,9 @@ Analyze thoroughly and respond in this exact JSON format:
 
 Be specific and practical. Include real resource URLs where possible. Rate readiness honestly based on how well current skills match target roles.`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 4096,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 4096,
     });
 
     let result;

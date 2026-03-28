@@ -1,6 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -34,10 +33,9 @@ Return this exact JSON format:
   "experienceLevel": "<entry/mid/senior/lead/null>"
 }`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 2048,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 2048,
     });
 
     let result;

@@ -1,6 +1,5 @@
 import { getSession } from "@/lib/auth";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -38,10 +37,9 @@ Return ONLY valid JSON:
   "explanation": "<brief explanation of what changed and why>"
 }`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 512,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 512,
     });
 
     let result;

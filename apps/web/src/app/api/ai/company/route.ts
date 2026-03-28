@@ -1,8 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { aiGenerations } from "@applypilot/shared";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -68,10 +67,9 @@ Provide the following in strict JSON format:
 
 Be specific and actionable. Base insights on publicly known information about ${companyName}.`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 4096,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 4096,
     });
 
     let result;

@@ -2,8 +2,7 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { profiles, applications, jobs, aiGenerations } from "@applypilot/shared";
 import { eq, desc } from "@applypilot/shared";
-import { anthropic } from "@ai-sdk/anthropic";
-import { generateText } from "ai";
+import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -77,10 +76,9 @@ Respond in this exact JSON format:
   "careerInsights": "1-2 paragraph analysis of their job search patterns and strategic advice"
 }`;
 
-    const { text } = await generateText({
-      model: anthropic("claude-sonnet-4-20250514"),
-      prompt,
-      maxOutputTokens: 3000,
+    const text = await generateAI({
+      messages: [{ role: "user", content: prompt }],
+      maxTokens: 3000,
     });
 
     let result;
