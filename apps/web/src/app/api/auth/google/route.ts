@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { createToken } from "@/lib/auth";
 import { profiles } from "@zypply/shared";
 import { eq } from "@zypply/shared";
-import { adminAuth } from "@/lib/firebase-admin";
 
 export async function POST(request: Request) {
   try {
@@ -12,9 +11,17 @@ export async function POST(request: Request) {
       return Response.json({ error: "idToken is required" }, { status: 400 });
     }
 
-    // Verify the Firebase ID token
-    const decodedToken = await adminAuth.verifyIdToken(idToken);
-    const { email, name, picture, uid } = decodedToken;
+    // Verify the Firebase ID token via Google's public token info endpoint
+    const verifyRes = await fetch(
+      `https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`
+    );
+
+    if (!verifyRes.ok) {
+      return Response.json({ error: "Invalid token" }, { status: 401 });
+    }
+
+    const tokenData = await verifyRes.json();
+    const { email, name, sub: uid, picture } = tokenData;
 
     if (!email) {
       return Response.json({ error: "Email not found in Google account" }, { status: 400 });
@@ -28,28 +35,27 @@ export async function POST(request: Request) {
       .limit(1);
 
     let userId: string;
+    let fullName = name || email.split("@")[0];
 
     if (existing.length > 0) {
-      // Existing user - log them in
       userId = existing[0].id;
+      fullName = existing[0].fullName;
     } else {
-      // New user - create account
       const [newUser] = await db
         .insert(profiles)
         .values({
           email,
-          fullName: name || email.split("@")[0],
-          passwordHash: `google:${uid}`, // Mark as Google auth user
+          fullName,
+          passwordHash: `google:${uid}`,
         })
         .returning({ id: profiles.id });
       userId = newUser.id;
     }
 
-    // Create JWT
     const token = await createToken(userId);
 
     const response = Response.json(
-      { user: { id: userId, email, fullName: name } },
+      { user: { id: userId, email, fullName } },
       { status: 200 }
     );
     const headers = new Headers(response.headers);
