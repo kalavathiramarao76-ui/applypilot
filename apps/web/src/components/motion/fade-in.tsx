@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 
@@ -47,7 +48,7 @@ export function FadeIn({
       transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
       className={className}
     >
-      {children}
+      {children as React.ReactNode}
     </motion.div>
   );
 }

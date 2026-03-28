@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 
@@ -49,5 +50,5 @@ export function StaggerItem({ children, className }: { children: ReactNode; clas
     return <div className={className}>{children}</div>;
   }
 
-  return <motion.div variants={item} className={className}>{children}</motion.div>;
+  return <motion.div variants={item} className={className}>{children as React.ReactNode}</motion.div>;
 }
