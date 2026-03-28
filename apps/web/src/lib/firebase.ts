@@ -3,7 +3,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA8_NLsIU-daIZpNmuuAHGDI0ihDrBDqnM",
-  authDomain: "zypply.web.app",
+  authDomain: "app1-99b5a.firebaseapp.com",
   projectId: "app1-99b5a",
   storageBucket: "app1-99b5a.firebasestorage.app",
   messagingSenderId: "967175964103",
