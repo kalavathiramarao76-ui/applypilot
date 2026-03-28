@@ -10,7 +10,7 @@ importers:
 
   apps/extension:
     dependencies:
-      '@applypilot/shared':
+      '@zypply/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@plasmohq/storage':
@@ -129,7 +129,7 @@ importers:
       '@ai-sdk/groq':
         specifier: ^3.0.31
         version: 3.0.31(zod@3.25.76)
-      '@applypilot/shared':
+      '@zypply/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@neondatabase/serverless':

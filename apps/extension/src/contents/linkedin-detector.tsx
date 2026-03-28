@@ -18,7 +18,7 @@ export const getStyle = () => {
 
 export const getRootContainer = () => {
   const container = document.createElement("div");
-  container.id = "applypilot-linkedin-root";
+  container.id = "zypply-linkedin-root";
   document.body.appendChild(container);
   return container;
 };
@@ -69,7 +69,7 @@ function LinkedInDetector() {
       setShowOverlay(true);
       // Dispatch custom event for the job-analyzer overlay to pick up
       window.dispatchEvent(
-        new CustomEvent("applypilot:analyze", { detail: jobData })
+        new CustomEvent("zypply:analyze", { detail: jobData })
       );
     }
   }
@@ -87,9 +87,9 @@ function LinkedInDetector() {
       <button
         onClick={handleClick}
         className="plasmo-flex plasmo-items-center plasmo-gap-2 plasmo-bg-gradient-to-r plasmo-from-indigo-600 plasmo-to-purple-600 plasmo-text-white plasmo-rounded-full plasmo-px-4 plasmo-py-3 plasmo-shadow-lg hover:plasmo-shadow-xl plasmo-transition-all hover:plasmo-scale-105 plasmo-border-0 plasmo-cursor-pointer plasmo-text-sm plasmo-font-medium"
-        title="Analyze this job with ApplyPilot">
+        title="Analyze this job with Zypply">
         <Sparkles size={18} />
-        <span>ApplyPilot</span>
+        <span>Zypply</span>
       </button>
     </div>
   );

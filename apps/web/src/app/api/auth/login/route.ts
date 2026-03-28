@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { verifyPassword, createToken } from "@/lib/auth";
-import { profiles, signInSchema } from "@applypilot/shared";
-import { eq } from "@applypilot/shared";
+import { profiles, signInSchema } from "@zypply/shared";
+import { eq } from "@zypply/shared";
 
 export async function POST(request: Request) {
   try {

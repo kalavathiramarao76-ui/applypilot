@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import { SignJWT, jwtVerify } from "jose";
 
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "applypilot_jwt_secret_fallback"
+  process.env.JWT_SECRET || "zypply_jwt_secret_fallback"
 );
 
 export async function hashPassword(password: string): Promise<string> {

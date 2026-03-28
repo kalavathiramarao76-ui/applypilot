@@ -1,19 +1,19 @@
 {
-  "name": "applypilot",
+  "name": "zypply",
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "dev": "turbo run dev",
-    "dev:web": "turbo run dev --filter=@applypilot/web",
-    "dev:ext": "turbo run dev --filter=@applypilot/extension",
-    "dev:mobile": "turbo run dev --filter=@applypilot/mobile",
+    "dev:web": "turbo run dev --filter=@zypply/web",
+    "dev:ext": "turbo run dev --filter=@zypply/extension",
+    "dev:mobile": "turbo run dev --filter=@zypply/mobile",
     "build": "turbo run build",
-    "build:web": "turbo run build --filter=@applypilot/web",
+    "build:web": "turbo run build --filter=@zypply/web",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "db:generate": "pnpm --filter @applypilot/shared run db:generate",
-    "db:push": "pnpm --filter @applypilot/shared run db:push",
-    "db:studio": "pnpm --filter @applypilot/shared run db:studio"
+    "db:generate": "pnpm --filter @zypply/shared run db:generate",
+    "db:push": "pnpm --filter @zypply/shared run db:push",
+    "db:studio": "pnpm --filter @zypply/shared run db:studio"
   }
 }

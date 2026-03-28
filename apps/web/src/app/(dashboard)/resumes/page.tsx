@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Plus, FileText, Calendar } from "lucide-react";
 import Link from "next/link";
-import type { Resume } from "@applypilot/shared";
+import type { Resume } from "@zypply/shared";
 
 export default function ResumesPage() {
   const [resumes, setResumes] = useState<Resume[]>([]);

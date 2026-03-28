@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { resumes, eq } from "@applypilot/shared";
-import type { ResumeContent } from "@applypilot/shared";
+import { resumes, eq } from "@zypply/shared";
+import type { ResumeContent } from "@zypply/shared";
 
 function escapeHtml(text: string): string {
   return text

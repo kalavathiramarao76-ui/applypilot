@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { applications, jobs, applicationSchema } from "@applypilot/shared";
-import { eq, desc, inArray } from "@applypilot/shared";
+import { applications, jobs, applicationSchema } from "@zypply/shared";
+import { eq, desc, inArray } from "@zypply/shared";
 
 export async function GET(request: Request) {
   try {

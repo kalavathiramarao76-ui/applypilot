@@ -11,7 +11,7 @@ import {
   Clock,
   Loader2,
 } from "lucide-react";
-import type { Application, Job } from "@applypilot/shared";
+import type { Application, Job } from "@zypply/shared";
 
 interface AppWithJob extends Application {
   job?: Job | null;

@@ -168,7 +168,7 @@ function Popup() {
             </div>
             <div>
               <h1 className="plasmo-text-base plasmo-font-bold plasmo-text-white plasmo-tracking-tight">
-                ApplyPilot
+                Zypply
               </h1>
               <p className="plasmo-text-indigo-200 plasmo-text-[10px] plasmo-leading-tight">
                 AI Job Application Copilot
@@ -193,7 +193,7 @@ function Popup() {
               <LogIn size={32} className="plasmo-text-indigo-600" />
             </div>
             <h2 className="plasmo-text-sm plasmo-font-bold plasmo-text-gray-900">
-              Welcome to ApplyPilot
+              Welcome to Zypply
             </h2>
             <p className="plasmo-text-xs plasmo-text-gray-500 plasmo-mt-1.5 plasmo-mb-5 plasmo-px-4 plasmo-leading-relaxed">
               Sign in to analyze job postings, get ATS scores, and tailor your
@@ -348,7 +348,7 @@ function Popup() {
       {/* Footer */}
       <div className="plasmo-border-t plasmo-border-gray-200 plasmo-px-4 plasmo-py-2.5 plasmo-flex plasmo-items-center plasmo-justify-between plasmo-bg-white">
         <p className="plasmo-text-[10px] plasmo-text-gray-400">
-          ApplyPilot v1.0.0
+          Zypply v1.0.0
         </p>
         {user && user.subscriptionTier?.toLowerCase() === "free" && (
           <button

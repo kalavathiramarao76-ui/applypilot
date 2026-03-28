@@ -14,8 +14,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, X, Plus, Save } from "lucide-react";
-import type { Profile } from "@applypilot/shared";
+import { Loader2, X, Plus, Save, Check, User, MapPin, Briefcase } from "lucide-react";
+import type { Profile } from "@zypply/shared";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<Partial<Profile>>({});
@@ -109,6 +109,13 @@ export default function ProfilePage() {
     );
   }
 
+  const initials = (profile.fullName || "U")
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
   return (
     <div className="space-y-6 max-w-3xl">
       <div className="flex items-center justify-between">
@@ -118,9 +125,11 @@ export default function ProfilePage() {
             Manage your professional profile
           </p>
         </div>
-        <Button onClick={handleSave} disabled={saving}>
+        <Button onClick={handleSave} disabled={saving} className="min-w-[140px]">
           {saving ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+          ) : saved ? (
+            <Check className="h-4 w-4 mr-2" />
           ) : (
             <Save className="h-4 w-4 mr-2" />
           )}
@@ -128,9 +137,32 @@ export default function ProfilePage() {
         </Button>
       </div>
 
+      {/* Profile Header with Avatar */}
+      <Card className="overflow-hidden">
+        <div className="h-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600" />
+        <CardContent className="relative pt-0 pb-6 px-6">
+          <div className="-mt-12 flex items-end gap-4">
+            <div className="h-20 w-20 rounded-2xl bg-white dark:bg-gray-900 shadow-lg flex items-center justify-center ring-4 ring-white dark:ring-gray-900">
+              <span className="text-2xl font-bold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {initials}
+              </span>
+            </div>
+            <div className="pb-1">
+              <h2 className="text-xl font-bold">{profile.fullName || "Your Name"}</h2>
+              {profile.headline && (
+                <p className="text-sm text-gray-500 dark:text-gray-400">{profile.headline}</p>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
-          <CardTitle>Basic Information</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <User className="h-5 w-5 text-blue-600" />
+            Basic Information
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -174,12 +206,15 @@ export default function ProfilePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Skills</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <Briefcase className="h-5 w-5 text-purple-600" />
+            Skills
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex gap-2">
             <Input
-              placeholder="Add a skill..."
+              placeholder="Add a skill and press Enter..."
               value={skillInput}
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())}
@@ -193,20 +228,26 @@ export default function ProfilePage() {
               <Badge
                 key={skill}
                 variant="secondary"
-                className="cursor-pointer"
+                className="cursor-pointer px-3 py-1.5 text-sm bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200/50 dark:border-blue-800/30 hover:from-red-50 hover:to-red-50 dark:hover:from-red-900/20 dark:hover:to-red-900/20 hover:border-red-200 dark:hover:border-red-800/30 transition-all group"
                 onClick={() => removeSkill(skill)}
               >
                 {skill}
-                <X className="h-3 w-3 ml-1" />
+                <X className="h-3 w-3 ml-1.5 text-gray-400 group-hover:text-red-500 transition-colors" />
               </Badge>
             ))}
+            {(profile.skills as string[] || []).length === 0 && (
+              <p className="text-sm text-gray-400">No skills added yet. Type above and press Enter.</p>
+            )}
           </div>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Preferences</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <MapPin className="h-5 w-5 text-green-600" />
+            Preferences
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">

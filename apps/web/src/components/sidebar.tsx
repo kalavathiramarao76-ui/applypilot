@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
@@ -8,7 +9,6 @@ import {
   Briefcase,
   User,
   LogOut,
-  Rocket,
   Building2,
   DollarSign,
   Users,
@@ -63,11 +63,9 @@ export function Sidebar({ user }: SidebarProps) {
     <aside className="flex flex-col w-64 min-h-screen bg-white border-r border-gray-200 dark:bg-gray-950 dark:border-gray-800">
       <div className="p-6">
         <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-            <Rocket className="h-4 w-4 text-white" />
-          </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            ApplyPilot
+          <Image src="/logo-icon.svg" alt="Zypply" width={32} height={32} />
+          <span className="text-xl font-bold bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+            Zypply
           </span>
         </Link>
       </div>
@@ -82,11 +80,11 @@ export function Sidebar({ user }: SidebarProps) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
                 isActive
-                  ? "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 dark:from-blue-950/50 dark:to-purple-950/50 dark:text-blue-300"
+                  ? "bg-gradient-to-r from-indigo-50 to-violet-50 text-indigo-700 dark:from-indigo-950/50 dark:to-violet-950/50 dark:text-indigo-300"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-100"
               )}
             >
-              <item.icon className={cn("h-5 w-5", isActive && "text-blue-600 dark:text-blue-400")} />
+              <item.icon className={cn("h-5 w-5", isActive && "text-indigo-600 dark:text-indigo-400")} />
               {item.label}
             </Link>
           );

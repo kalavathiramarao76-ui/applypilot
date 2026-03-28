@@ -11,7 +11,6 @@ import {
   MessageSquare,
   ArrowRight,
   Check,
-  Rocket,
   Upload,
   Search,
   Sparkles,
@@ -29,7 +28,7 @@ import {
   Clock,
   TrendingUp,
 } from "lucide-react";
-import { SUBSCRIPTION_TIERS } from "@applypilot/shared";
+import { SUBSCRIPTION_TIERS } from "@zypply/shared";
 
 /* ===== DATA ===== */
 
@@ -87,7 +86,7 @@ const benefits = [
 const testimonials = [
   {
     quote:
-      "I went from mass-applying to 50 jobs a week with zero callbacks, to landing 4 interviews in my first week with ApplyPilot. The ATS scoring alone is worth 10x the price.",
+      "I went from mass-applying to 50 jobs a week with zero callbacks, to landing 4 interviews in my first week with Zypply. The ATS scoring alone is worth 10x the price.",
     name: "Sarah Chen",
     title: "Software Engineer",
     company: "Now at Google",
@@ -105,7 +104,7 @@ const testimonials = [
   },
   {
     quote:
-      "As a career changer, I was struggling to position my experience. ApplyPilot helped me reframe everything perfectly for tech roles. Landed my dream job in 6 weeks.",
+      "As a career changer, I was struggling to position my experience. Zypply helped me reframe everything perfectly for tech roles. Landed my dream job in 6 weeks.",
     name: "Priya Patel",
     title: "Data Analyst",
     company: "Now at Netflix",
@@ -130,7 +129,7 @@ const competitorFeatures = [
 const faqs = [
   {
     q: "What is ATS and why does it matter?",
-    a: "ATS (Applicant Tracking System) is software that companies use to filter resumes before a human ever sees them. Over 75% of resumes are rejected by ATS. ApplyPilot optimizes your resume to pass these systems and reach real recruiters.",
+    a: "ATS (Applicant Tracking System) is software that companies use to filter resumes before a human ever sees them. Over 75% of resumes are rejected by ATS. Zypply optimizes your resume to pass these systems and reach real recruiters.",
   },
   {
     q: "How does AI tailoring work?",
@@ -150,7 +149,7 @@ const faqs = [
   },
   {
     q: "How is this different from ChatGPT?",
-    a: "ChatGPT is a general-purpose AI. ApplyPilot is purpose-built for job applications with specialized models trained on millions of successful resumes, ATS systems, and hiring patterns. We also provide tracking, analytics, and a complete workflow -- not just text generation.",
+    a: "ChatGPT is a general-purpose AI. Zypply is purpose-built for job applications with specialized models trained on millions of successful resumes, ATS systems, and hiring patterns. We also provide tracking, analytics, and a complete workflow -- not just text generation.",
   },
 ];
 
@@ -175,7 +174,7 @@ export default function LandingPage() {
           <div className="animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-medium mb-8 border border-blue-100 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800">
               <span className="text-base">🚀</span>
-              Now with AI Interview Prep &amp; Company Intel
+              Your AI Career Copilot — Now with Interview Prep &amp; Company Intel
             </div>
           </div>
 
@@ -188,7 +187,7 @@ export default function LandingPage() {
 
           {/* Subheadline */}
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-delay-2">
-            75% of resumes never reach human eyes. ApplyPilot uses AI to tailor
+            75% of resumes never reach human eyes. Zypply uses AI to tailor
             your resume, write cover letters, and beat ATS systems — in seconds,
             not hours.
           </p>
@@ -355,7 +354,7 @@ export default function LandingPage() {
                   <X className="h-5 w-5 text-red-500" />
                 </div>
                 <h3 className="text-xl font-bold text-red-600 dark:text-red-400">
-                  Without ApplyPilot
+                  Without Zypply
                 </h3>
               </div>
               <ul className="space-y-4">
@@ -379,7 +378,7 @@ export default function LandingPage() {
                   <Check className="h-5 w-5 text-emerald-500" />
                 </div>
                 <h3 className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
-                  With ApplyPilot
+                  With Zypply
                 </h3>
               </div>
               <ul className="space-y-4">
@@ -763,10 +762,10 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <Badge variant="secondary" className="mb-4">
-              Why ApplyPilot
+              Why Zypply
             </Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-              ApplyPilot vs. The Competition
+              Zypply vs. The Competition
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
               More features, lower price. It is not even close.
@@ -779,7 +778,7 @@ export default function LandingPage() {
                 <tr className="bg-gray-50 dark:bg-gray-900">
                   <th className="text-left p-4 font-semibold">Feature</th>
                   <th className="p-4 text-center font-bold text-blue-600 dark:text-blue-400">
-                    ApplyPilot
+                    Zypply
                   </th>
                   <th className="p-4 text-center font-medium text-gray-500">
                     Teal
@@ -1036,15 +1035,14 @@ export default function LandingPage() {
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                  <Rocket className="h-4 w-4 text-white" />
-                </div>
-                <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  ApplyPilot
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo-icon.svg" alt="Zypply" width={32} height={32} />
+                <span className="font-bold text-lg bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
+                  Zypply
                 </span>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                AI-Powered Job Application Copilot
+                Your AI Career Copilot
               </p>
               {/* Social links */}
               <div className="flex items-center gap-3">
@@ -1233,7 +1231,7 @@ export default function LandingPage() {
 
           <div className="pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-400">
             <span>
-              &copy; {new Date().getFullYear()} ApplyPilot. All rights reserved.
+              &copy; {new Date().getFullYear()} Zypply. All rights reserved.
             </span>
             <span>Made with care for job seekers everywhere.</span>
           </div>

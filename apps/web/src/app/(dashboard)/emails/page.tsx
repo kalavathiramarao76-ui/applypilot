@@ -36,7 +36,7 @@ import {
   Lightbulb,
   Clock,
 } from "lucide-react";
-import type { Job } from "@applypilot/shared";
+import type { Job } from "@zypply/shared";
 
 const emailTypes = [
   { value: "follow-up", label: "Follow Up", icon: Clock, color: "from-blue-500 to-blue-600", description: "Check in after applying or an interview" },

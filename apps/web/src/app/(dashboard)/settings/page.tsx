@@ -138,7 +138,7 @@ export default function SettingsPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "applypilot-data-export.json";
+        a.download = "zypply-data-export.json";
         a.click();
         URL.revokeObjectURL(url);
       }
@@ -313,7 +313,7 @@ export default function SettingsPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
             <div>
               <p className="font-medium text-sm">Email Notifications</p>
               <p className="text-xs text-gray-500">
@@ -321,7 +321,9 @@ export default function SettingsPage() {
               </p>
             </div>
             <button
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              role="switch"
+              aria-checked={emailNotifications}
+              className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 shadow-inner ${
                 emailNotifications
                   ? "bg-blue-600"
                   : "bg-gray-300 dark:bg-gray-600"
@@ -329,13 +331,13 @@ export default function SettingsPage() {
               onClick={() => setEmailNotifications(!emailNotifications)}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-200 ${
                   emailNotifications ? "translate-x-6" : "translate-x-1"
                 }`}
               />
             </button>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
             <div>
               <p className="font-medium text-sm">Auto-save Applications</p>
               <p className="text-xs text-gray-500">
@@ -343,7 +345,9 @@ export default function SettingsPage() {
               </p>
             </div>
             <button
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              role="switch"
+              aria-checked={autoSaveApps}
+              className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 shadow-inner ${
                 autoSaveApps
                   ? "bg-blue-600"
                   : "bg-gray-300 dark:bg-gray-600"
@@ -351,7 +355,7 @@ export default function SettingsPage() {
               onClick={() => setAutoSaveApps(!autoSaveApps)}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-200 ${
                   autoSaveApps ? "translate-x-6" : "translate-x-1"
                 }`}
               />
@@ -440,15 +444,15 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      {/* Data Management */}
+      {/* Data Export */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Database className="h-5 w-5 text-red-600" />
-            Data Management
+            <Database className="h-5 w-5 text-blue-600" />
+            Data Export
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent>
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-sm">Export All Data</p>
@@ -470,44 +474,54 @@ export default function SettingsPage() {
               Export
             </Button>
           </div>
-          <div className="border-t dark:border-gray-700 pt-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-medium text-sm text-red-600">
-                  Delete Account
-                </p>
-                <p className="text-xs text-gray-500">
-                  Permanently delete your account and all data
-                </p>
-              </div>
-              {!showDeleteConfirm ? (
+        </CardContent>
+      </Card>
+
+      {/* Danger Zone */}
+      <Card className="border-2 border-red-200 dark:border-red-900/50">
+        <CardHeader className="bg-red-50/50 dark:bg-red-950/20">
+          <CardTitle className="flex items-center gap-2 text-red-700 dark:text-red-400">
+            <Trash2 className="h-5 w-5" />
+            Danger Zone
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium text-sm text-red-700 dark:text-red-400">
+                Delete Account
+              </p>
+              <p className="text-xs text-gray-500">
+                Permanently delete your account and all data. This action cannot be undone.
+              </p>
+            </div>
+            {!showDeleteConfirm ? (
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-red-600 border-red-300 hover:bg-red-50 dark:border-red-800 dark:hover:bg-red-950/30"
+                onClick={() => setShowDeleteConfirm(true)}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete Account
+              </Button>
+            ) : (
+              <div className="flex gap-2">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-red-600 border-red-200 hover:bg-red-50"
-                  onClick={() => setShowDeleteConfirm(true)}
+                  onClick={() => setShowDeleteConfirm(false)}
                 >
-                  <Trash2 className="h-4 w-4 mr-2" />
-                  Delete
+                  Cancel
                 </Button>
-              ) : (
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowDeleteConfirm(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="bg-red-600 hover:bg-red-700 text-white"
-                  >
-                    Confirm Delete
-                  </Button>
-                </div>
-              )}
-            </div>
+                <Button
+                  size="sm"
+                  className="bg-red-600 hover:bg-red-700 text-white"
+                >
+                  Confirm Delete
+                </Button>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

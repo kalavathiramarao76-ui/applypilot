@@ -2,12 +2,21 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { verifyToken } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { applications, jobs } from "@applypilot/shared";
-import { eq, desc, inArray } from "@applypilot/shared";
+import { applications, jobs } from "@zypply/shared";
+import { eq, desc, inArray } from "@zypply/shared";
 import { StatsCard } from "@/components/stats-card";
 import { ApplicationCard } from "@/components/application-card";
 import { Recommendations } from "@/components/recommendations";
-import { Briefcase, TrendingUp, Target, BarChart3 } from "lucide-react";
+import {
+  Briefcase,
+  TrendingUp,
+  Target,
+  BarChart3,
+  ArrowRight,
+  FileText,
+  Rocket,
+} from "lucide-react";
+import Link from "next/link";
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
@@ -68,8 +77,38 @@ export default async function DashboardPage() {
     job: app.jobId ? jobMap.get(app.jobId) || null : null,
   }));
 
+  const isFirstTime = totalApps === 0;
+
   return (
     <div className="space-y-8">
+      {/* Welcome Banner for first-time users */}
+      {isFirstTime && (
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-8 text-white shadow-xl">
+          <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
+          <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
+                <Rocket className="h-5 w-5" />
+              </div>
+              <h2 className="text-2xl font-bold">Welcome to Zypply!</h2>
+            </div>
+            <p className="text-blue-100 max-w-lg mb-5">
+              Your AI-powered job application copilot. Start by creating your
+              profile, then let us help you tailor resumes, ace interviews, and
+              land your dream job.
+            </p>
+            <Link
+              href="/profile"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-blue-700 shadow-lg transition-all hover:bg-blue-50 hover:shadow-xl"
+            >
+              Create your profile
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      )}
+
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-1">
@@ -82,21 +121,29 @@ export default async function DashboardPage() {
           title="Total Applications"
           value={totalApps}
           icon={Briefcase}
+          gradient="from-blue-500/15 to-cyan-500/15"
+          iconColor="text-blue-600 dark:text-blue-400"
         />
         <StatsCard
           title="Applied This Week"
           value={weekApps}
           icon={TrendingUp}
+          gradient="from-green-500/15 to-emerald-500/15"
+          iconColor="text-green-600 dark:text-green-400"
         />
         <StatsCard
           title="Interview Rate"
           value={`${interviewRate}%`}
           icon={BarChart3}
+          gradient="from-purple-500/15 to-pink-500/15"
+          iconColor="text-purple-600 dark:text-purple-400"
         />
         <StatsCard
           title="Avg ATS Score"
           value={avgAtsScore > 0 ? `${avgAtsScore}%` : "N/A"}
           icon={Target}
+          gradient="from-orange-500/15 to-amber-500/15"
+          iconColor="text-orange-600 dark:text-orange-400"
         />
       </div>
 
@@ -105,12 +152,24 @@ export default async function DashboardPage() {
       <div>
         <h2 className="text-xl font-semibold mb-4">Recent Applications</h2>
         {recentWithJobs.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800">
-            <Briefcase className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-            <p className="text-gray-500 dark:text-gray-400">
-              No applications yet. Start by adding a job and tailoring your
-              resume!
+          <div className="text-center py-16 bg-white dark:bg-gray-950 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30">
+              <FileText className="h-8 w-8 text-blue-500 dark:text-blue-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
+              No applications yet
+            </h3>
+            <p className="text-gray-500 dark:text-gray-400 mb-5 max-w-sm mx-auto">
+              Start by adding a job and tailoring your resume with AI to land
+              more interviews.
             </p>
+            <Link
+              href="/quick-apply"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg"
+            >
+              <Rocket className="h-4 w-4" />
+              Quick Apply
+            </Link>
           </div>
         ) : (
           <div className="space-y-3">

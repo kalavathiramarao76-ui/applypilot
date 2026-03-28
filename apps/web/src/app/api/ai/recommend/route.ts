@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { profiles, applications, jobs, aiGenerations } from "@applypilot/shared";
-import { eq, desc } from "@applypilot/shared";
+import { profiles, applications, jobs, aiGenerations } from "@zypply/shared";
+import { eq, desc } from "@zypply/shared";
 import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
 
     let recentJobs: { jobTitle: string; companyName: string | null; keywords: unknown }[] = [];
     if (jobIds.length > 0) {
-      const { inArray } = await import("@applypilot/shared");
+      const { inArray } = await import("@zypply/shared");
       recentJobs = await db
         .select({
           jobTitle: jobs.jobTitle,

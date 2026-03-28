@@ -178,7 +178,7 @@ export default function OnboardingPage() {
             <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center mx-auto">
               <Rocket className="h-10 w-10 text-white" />
             </div>
-            <h1 className="text-3xl font-bold">Welcome to ApplyPilot!</h1>
+            <h1 className="text-3xl font-bold">Welcome to Zypply!</h1>
             <p className="text-gray-500 dark:text-gray-400 text-lg max-w-md mx-auto">
               Let&apos;s set up your profile in about 2 minutes so we can help
               you land your dream job.
@@ -386,7 +386,7 @@ export default function OnboardingPage() {
             </div>
             <h1 className="text-3xl font-bold">You&apos;re All Set!</h1>
             <p className="text-gray-500 dark:text-gray-400 text-lg max-w-md mx-auto">
-              Your profile is ready. Start exploring jobs and let ApplyPilot
+              Your profile is ready. Start exploring jobs and let Zypply
               help you stand out.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

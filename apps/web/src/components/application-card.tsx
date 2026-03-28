@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, Calendar, Target } from "lucide-react";
-import type { Application, Job } from "@applypilot/shared";
+import type { Application, Job } from "@zypply/shared";
 
 const statusVariantMap: Record<string, "default" | "secondary" | "destructive" | "outline" | "success" | "warning" | "purple"> = {
   saved: "secondary",

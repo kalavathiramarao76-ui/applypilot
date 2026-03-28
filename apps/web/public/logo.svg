@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <defs>
+    <linearGradient id="zg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="zt" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon: Abstract Z with lightning/arrow motif -->
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="url(#zg)"/>
+  <path d="M14 14h20l-12 9h12l-4 4-16-0.5 12-9H14l2-3.5z" fill="white" opacity="0.95"/>
+  <path d="M30 23l6-2 -8 18-2-4 8-11z" fill="white" opacity="0.9"/>
+  <!-- Text: Zypply -->
+  <text x="56" y="34" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="url(#zt)">Zypply</text>
+</svg>

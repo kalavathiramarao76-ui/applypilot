@@ -25,7 +25,7 @@ import {
   Target,
   Trophy,
 } from "lucide-react";
-import type { Job } from "@applypilot/shared";
+import type { Job } from "@zypply/shared";
 
 interface Question {
   id: number;
@@ -200,22 +200,25 @@ export default function InterviewPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
+          <Card className="overflow-hidden shadow-md">
+            <div className={`h-1 ${avgScore >= 80 ? "bg-green-500" : avgScore >= 60 ? "bg-amber-500" : "bg-red-500"}`} />
             <CardContent className="p-6 text-center">
               <div className={`text-5xl font-bold ${getScoreColor(avgScore)}`}>{avgScore}</div>
-              <p className="text-sm text-gray-500 mt-2">Overall Score</p>
+              <p className="text-sm text-gray-500 mt-2 font-medium">Overall Score</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="overflow-hidden shadow-md">
+            <div className="h-1 bg-blue-500" />
             <CardContent className="p-6 text-center">
               <div className="text-5xl font-bold text-blue-600">{answeredCount}</div>
-              <p className="text-sm text-gray-500 mt-2">Questions Answered</p>
+              <p className="text-sm text-gray-500 mt-2 font-medium">Questions Answered</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="overflow-hidden shadow-md">
+            <div className="h-1 bg-purple-500" />
             <CardContent className="p-6 text-center">
               <div className="text-5xl font-bold text-purple-600">{questions.length}</div>
-              <p className="text-sm text-gray-500 mt-2">Total Questions</p>
+              <p className="text-sm text-gray-500 mt-2 font-medium">Total Questions</p>
             </CardContent>
           </Card>
         </div>
@@ -390,50 +393,62 @@ export default function InterviewPage() {
       </div>
 
       {/* Progress bar */}
-      <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden shadow-inner">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500"
+          className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 rounded-full transition-all duration-700 ease-out"
           style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}
         />
       </div>
 
       {/* Question dots */}
-      <div className="flex gap-1.5 flex-wrap">
-        {questions.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setCurrentQ(i);
-              setCurrentAnswer(answers[i]?.answer || "");
-              setExpandedEval(null);
-            }}
-            className={`h-3 w-3 rounded-full transition-all ${
-              i === currentQ
-                ? "bg-blue-600 scale-125"
-                : answers[i]?.evaluation
-                ? "bg-green-500"
-                : "bg-gray-300 dark:bg-gray-600"
-            }`}
-          />
-        ))}
+      <div className="flex gap-2 flex-wrap">
+        {questions.map((_, i) => {
+          const hasEval = !!answers[i]?.evaluation;
+          const score = answers[i]?.evaluation?.score;
+          return (
+            <button
+              key={i}
+              onClick={() => {
+                setCurrentQ(i);
+                setCurrentAnswer(answers[i]?.answer || "");
+                setExpandedEval(null);
+              }}
+              title={hasEval ? `Q${i + 1}: Score ${score}/100` : `Q${i + 1}`}
+              className={`h-8 w-8 rounded-lg text-xs font-medium transition-all duration-200 flex items-center justify-center ${
+                i === currentQ
+                  ? "bg-blue-600 text-white shadow-md scale-110 ring-2 ring-blue-300 dark:ring-blue-700"
+                  : hasEval
+                    ? score && score >= 80
+                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                      : score && score >= 60
+                        ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                        : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                    : "bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500"
+              }`}
+            >
+              {hasEval ? score : i + 1}
+            </button>
+          );
+        })}
       </div>
 
       {/* Question card */}
-      <Card className="border-2 border-blue-100 dark:border-blue-900/30">
+      <Card className="border-2 border-blue-100 dark:border-blue-900/30 shadow-lg overflow-hidden">
+        <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
         <CardContent className="p-6">
           <div className="flex items-start justify-between gap-3 mb-4">
-            <Badge variant={getDifficultyColor(q.difficulty) as "success" | "warning" | "destructive"} className="capitalize">
+            <Badge variant={getDifficultyColor(q.difficulty) as "success" | "warning" | "destructive"} className="capitalize px-3 py-1">
               {q.difficulty}
             </Badge>
-            <span className="text-xs text-gray-400">Q{q.id}</span>
+            <span className="text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md">Q{q.id}</span>
           </div>
-          <h2 className="text-xl font-semibold mb-4">{q.question}</h2>
-          <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-3">
-            <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1">
-              <Target className="h-3 w-3 inline mr-1" />
+          <h2 className="text-xl font-semibold mb-4 leading-relaxed">{q.question}</h2>
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-xl p-4 border border-blue-100 dark:border-blue-800/30">
+            <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-1.5 flex items-center gap-1.5">
+              <Target className="h-3.5 w-3.5" />
               What the interviewer is looking for:
             </p>
-            <p className="text-sm text-blue-600 dark:text-blue-400">{q.lookingFor}</p>
+            <p className="text-sm text-blue-600 dark:text-blue-400 leading-relaxed">{q.lookingFor}</p>
           </div>
         </CardContent>
       </Card>
@@ -467,11 +482,24 @@ export default function InterviewPage() {
 
       {/* Evaluation result */}
       {answers[currentQ]?.evaluation && (
-        <Card className="border-2 border-green-100 dark:border-green-900/30">
+        <Card className="border-2 border-green-100 dark:border-green-900/30 shadow-md overflow-hidden">
+          <div className={`h-1 ${
+            answers[currentQ].evaluation!.score >= 80
+              ? "bg-gradient-to-r from-green-400 to-emerald-500"
+              : answers[currentQ].evaluation!.score >= 60
+                ? "bg-gradient-to-r from-yellow-400 to-amber-500"
+                : "bg-gradient-to-r from-red-400 to-rose-500"
+          }`} />
           <CardContent className="p-6 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold">Evaluation</h3>
-              <div className={`text-3xl font-bold ${getScoreColor(answers[currentQ].evaluation!.score)}`}>
+              <h3 className="font-semibold text-lg">Evaluation</h3>
+              <div className={`text-3xl font-bold px-4 py-1 rounded-xl ${
+                answers[currentQ].evaluation!.score >= 80
+                  ? "bg-green-50 dark:bg-green-900/20 text-green-600"
+                  : answers[currentQ].evaluation!.score >= 60
+                    ? "bg-amber-50 dark:bg-amber-900/20 text-amber-600"
+                    : "bg-red-50 dark:bg-red-900/20 text-red-600"
+              }`}>
                 {answers[currentQ].evaluation!.score}/100
               </div>
             </div>

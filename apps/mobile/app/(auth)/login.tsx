@@ -50,7 +50,7 @@ export default function LoginScreen() {
             <View style={styles.logoContainer}>
               <Text style={styles.logoIcon}>AP</Text>
             </View>
-            <Text style={styles.title}>ApplyPilot</Text>
+            <Text style={styles.title}>Zypply</Text>
             <Text style={styles.tagline}>
               Your AI-Powered Job Application Copilot
             </Text>

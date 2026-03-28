@@ -15,7 +15,7 @@ import {
   Building2,
   Briefcase,
 } from "lucide-react";
-import type { Application, Job } from "@applypilot/shared";
+import type { Application, Job } from "@zypply/shared";
 
 interface AppWithJob extends Application {
   job?: Job | null;

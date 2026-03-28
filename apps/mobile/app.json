@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "ApplyPilot",
-    "slug": "applypilot",
+    "name": "Zypply",
+    "slug": "zypply",
     "version": "1.0.0",
-    "scheme": "applypilot",
+    "scheme": "zypply",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",

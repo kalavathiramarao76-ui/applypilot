@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { applications, jobs, aiGenerations } from "@applypilot/shared";
-import { eq, and, gte, desc } from "@applypilot/shared";
+import { applications, jobs, aiGenerations } from "@zypply/shared";
+import { eq, and, gte, desc } from "@zypply/shared";
 import { generateAI } from "@/lib/ai";
 
 export async function GET(request: Request) {

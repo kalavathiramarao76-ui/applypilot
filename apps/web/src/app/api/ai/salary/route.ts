@@ -1,6 +1,6 @@
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { aiGenerations } from "@applypilot/shared";
+import { aiGenerations } from "@zypply/shared";
 import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {

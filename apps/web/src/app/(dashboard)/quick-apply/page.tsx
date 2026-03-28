@@ -252,20 +252,20 @@ export default function QuickApplyPage() {
       </div>
 
       {/* Step Indicators */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-4">
         {steps.map((s, i) => {
           const isActive = s.id === step;
           const isCompleted = s.id < step;
           return (
             <div key={s.id} className="flex items-center flex-1">
-              <div className="flex flex-col items-center flex-1">
+              <div className="flex flex-col items-center flex-1 relative">
                 <div
-                  className={`h-10 w-10 rounded-full flex items-center justify-center transition-all ${
+                  className={`h-11 w-11 rounded-full flex items-center justify-center transition-all duration-300 ring-4 ${
                     isCompleted
-                      ? "bg-green-500 text-white"
+                      ? "bg-green-500 text-white ring-green-100 dark:ring-green-900/30 shadow-md"
                       : isActive
-                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-400"
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white ring-blue-100 dark:ring-blue-900/30 shadow-lg scale-110"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-400 ring-transparent"
                   }`}
                 >
                   {isCompleted ? (
@@ -275,23 +275,27 @@ export default function QuickApplyPage() {
                   )}
                 </div>
                 <span
-                  className={`text-xs mt-1 ${
+                  className={`text-xs mt-2 transition-colors ${
                     isActive
-                      ? "font-semibold text-blue-600"
-                      : "text-gray-400"
+                      ? "font-semibold text-blue-600 dark:text-blue-400"
+                      : isCompleted
+                        ? "font-medium text-green-600 dark:text-green-400"
+                        : "text-gray-400"
                   }`}
                 >
                   {s.label}
                 </span>
               </div>
               {i < steps.length - 1 && (
-                <div
-                  className={`h-0.5 flex-1 mx-2 ${
-                    isCompleted
-                      ? "bg-green-500"
-                      : "bg-gray-200 dark:bg-gray-800"
-                  }`}
-                />
+                <div className="flex-1 mx-1 -mt-5">
+                  <div
+                    className={`h-0.5 rounded-full transition-all duration-500 ${
+                      isCompleted
+                        ? "bg-gradient-to-r from-green-500 to-green-400"
+                        : "bg-gray-200 dark:bg-gray-800"
+                    }`}
+                  />
+                </div>
               )}
             </div>
           );
@@ -487,19 +491,24 @@ export default function QuickApplyPage() {
 
       {/* Step 4: Processing */}
       {step === 4 && tailoring && (
-        <Card>
-          <CardContent className="py-16 text-center space-y-4">
-            <div className="relative mx-auto w-16 h-16">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-spin opacity-20" />
-              <div className="absolute inset-2 rounded-full bg-white dark:bg-gray-950 flex items-center justify-center">
-                <Sparkles className="h-6 w-6 text-purple-500 animate-pulse" />
+        <Card className="border-2 border-purple-100 dark:border-purple-900/30 shadow-lg">
+          <CardContent className="py-20 text-center space-y-6">
+            <div className="relative mx-auto w-20 h-20">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 animate-spin opacity-20 blur-sm" />
+              <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500 animate-spin" />
+              <div className="absolute inset-3 rounded-full bg-white dark:bg-gray-950 flex items-center justify-center shadow-inner">
+                <Sparkles className="h-7 w-7 text-purple-500 animate-pulse" />
               </div>
             </div>
-            <h3 className="text-lg font-semibold">AI is working its magic</h3>
-            <p className="text-gray-500 text-sm">
-              Tailoring your resume, generating cover letter, and scoring ATS
-              compatibility...
-            </p>
+            <div>
+              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                AI is working its magic
+              </h3>
+              <p className="text-gray-500 text-sm mt-2 max-w-md mx-auto">
+                Tailoring your resume, generating a cover letter, and scoring ATS
+                compatibility...
+              </p>
+            </div>
             <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
               <Loader2 className="h-4 w-4 animate-spin" />
               This usually takes 15-30 seconds
@@ -512,18 +521,19 @@ export default function QuickApplyPage() {
       {step === 5 && result && (
         <div className="space-y-6">
           {/* ATS Score */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
+          <Card className="shadow-lg border-2 border-blue-100 dark:border-blue-900/30 overflow-hidden">
+            <CardContent className="p-6 relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-950/20 dark:to-purple-950/20" />
+              <div className="relative flex items-start justify-between">
                 {renderAtsScoreRing(result.atsScore.overall)}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center">
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center p-3 rounded-xl bg-white/60 dark:bg-gray-900/60 shadow-sm">
                     <p className="text-2xl font-bold text-blue-600">
                       {result.atsScore.keywordMatch}%
                     </p>
                     <p className="text-xs text-gray-500">Keyword Match</p>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center p-3 rounded-xl bg-white/60 dark:bg-gray-900/60 shadow-sm">
                     <p className="text-2xl font-bold text-purple-600">
                       {result.atsScore.formatScore}%
                     </p>

@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { jobs, resumes, applications, aiGenerations } from "@applypilot/shared";
-import { eq } from "@applypilot/shared";
+import { jobs, resumes, applications, aiGenerations } from "@zypply/shared";
+import { eq } from "@zypply/shared";
 import { generateAI } from "@/lib/ai";
 
 export async function POST(request: Request) {

@@ -277,14 +277,22 @@ export default function BoardPage() {
               {/* Cards */}
               <div className="flex-1 overflow-y-auto p-3 space-y-2">
                 {apps.length === 0 ? (
-                  <p className="text-xs text-gray-400 text-center py-6">
-                    No applications
-                  </p>
+                  <div className="flex flex-col items-center justify-center py-8 text-center">
+                    <div className="h-10 w-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-2">
+                      <Building2 className="h-5 w-5 text-gray-300 dark:text-gray-600" />
+                    </div>
+                    <p className="text-xs text-gray-400">
+                      No applications
+                    </p>
+                    <p className="text-xs text-gray-300 dark:text-gray-600 mt-0.5">
+                      Drag cards here or add new
+                    </p>
+                  </div>
                 ) : (
                   apps.map((app) => (
                     <Card
                       key={app.id}
-                      className="cursor-pointer hover:shadow-md transition-shadow bg-white dark:bg-gray-950"
+                      className="cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800"
                       onClick={() => openDetail(app)}
                     >
                       <CardContent className="p-3 space-y-2">

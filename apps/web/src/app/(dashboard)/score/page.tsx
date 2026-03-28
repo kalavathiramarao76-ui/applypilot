@@ -23,7 +23,7 @@ import {
   FileText,
   Target,
 } from "lucide-react";
-import type { Resume, Job } from "@applypilot/shared";
+import type { Resume, Job } from "@zypply/shared";
 
 interface CategoryScore {
   score: number;

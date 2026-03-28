@@ -18,6 +18,14 @@ import {
   ArrowLeft,
   X,
   Loader2,
+  User,
+  Briefcase,
+  GraduationCap,
+  Wrench,
+  FolderOpen,
+  Award,
+  FileText,
+  Eye,
 } from "lucide-react";
 
 interface ExperienceEntry {
@@ -471,9 +479,12 @@ export default function NewResumePage() {
         {/* Editor Panel */}
         <div className="space-y-6">
           {/* Resume Name & Settings */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle>Resume Details</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-blue-600" />
+                Resume Details
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -524,9 +535,12 @@ export default function NewResumePage() {
           </Card>
 
           {/* Personal Info */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle>Personal Information</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-5 w-5 text-purple-600" />
+                Personal Information
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -594,10 +608,13 @@ export default function NewResumePage() {
           </Card>
 
           {/* Summary */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Professional Summary</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-amber-500" />
+                  Professional Summary
+                </CardTitle>
                 <Button
                   variant="outline"
                   size="sm"
@@ -626,10 +643,13 @@ export default function NewResumePage() {
           </Card>
 
           {/* Experience */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Experience</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Briefcase className="h-5 w-5 text-green-600" />
+                  Experience
+                </CardTitle>
                 <Button variant="outline" size="sm" onClick={addExperience}>
                   <Plus className="h-4 w-4 mr-1" />
                   Add
@@ -640,7 +660,7 @@ export default function NewResumePage() {
               {form.experiences.map((exp, expIdx) => (
                 <div
                   key={expIdx}
-                  className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg space-y-4"
+                  className="p-4 border border-gray-200 dark:border-gray-800 rounded-xl space-y-4 bg-gray-50/50 dark:bg-gray-900/30 transition-all hover:shadow-sm"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-gray-500">
@@ -797,10 +817,13 @@ export default function NewResumePage() {
           </Card>
 
           {/* Education */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Education</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <GraduationCap className="h-5 w-5 text-indigo-600" />
+                  Education
+                </CardTitle>
                 <Button variant="outline" size="sm" onClick={addEducation}>
                   <Plus className="h-4 w-4 mr-1" />
                   Add
@@ -811,7 +834,7 @@ export default function NewResumePage() {
               {form.education.map((edu, eduIdx) => (
                 <div
                   key={eduIdx}
-                  className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg space-y-4"
+                  className="p-4 border border-gray-200 dark:border-gray-800 rounded-xl space-y-4 bg-gray-50/50 dark:bg-gray-900/30 transition-all hover:shadow-sm"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-gray-500">
@@ -892,9 +915,12 @@ export default function NewResumePage() {
           </Card>
 
           {/* Skills */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle>Skills</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Wrench className="h-5 w-5 text-cyan-600" />
+                Skills
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Input
@@ -919,10 +945,13 @@ export default function NewResumePage() {
           </Card>
 
           {/* Projects */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Projects</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <FolderOpen className="h-5 w-5 text-orange-600" />
+                  Projects
+                </CardTitle>
                 <Button variant="outline" size="sm" onClick={addProject}>
                   <Plus className="h-4 w-4 mr-1" />
                   Add
@@ -992,9 +1021,12 @@ export default function NewResumePage() {
           </Card>
 
           {/* Certifications */}
-          <Card>
+          <Card className="shadow-sm">
             <CardHeader>
-              <CardTitle>Certifications</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="h-5 w-5 text-rose-600" />
+                Certifications
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Input
@@ -1030,9 +1062,12 @@ export default function NewResumePage() {
         {/* Live Preview Panel */}
         <div className="hidden xl:block">
           <div className="sticky top-8">
-            <Card className="overflow-hidden">
-              <CardHeader className="bg-gray-50 dark:bg-gray-900/50 border-b">
-                <CardTitle className="text-sm">Live Preview</CardTitle>
+            <Card className="overflow-hidden shadow-lg border-2 border-gray-200 dark:border-gray-700">
+              <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 border-b">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Eye className="h-4 w-4 text-blue-600" />
+                  Live Preview
+                </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="prose prose-sm dark:prose-invert max-w-none">

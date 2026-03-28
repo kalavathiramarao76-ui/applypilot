@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { profiles } from "@applypilot/shared";
-import { eq } from "@applypilot/shared";
+import { profiles } from "@zypply/shared";
+import { eq } from "@zypply/shared";
 
 export async function GET(request: Request) {
   try {

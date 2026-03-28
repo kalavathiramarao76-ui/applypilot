@@ -40,7 +40,7 @@ export const getStyle = () => {
 
 export const getRootContainer = () => {
   const container = document.createElement("div");
-  container.id = "applypilot-analyzer-root";
+  container.id = "zypply-analyzer-root";
   document.body.appendChild(container);
   return container;
 };
@@ -189,9 +189,9 @@ function JobAnalyzer() {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("applypilot:analyze", handleAnalyzeEvent);
+    window.addEventListener("zypply:analyze", handleAnalyzeEvent);
     return () => {
-      window.removeEventListener("applypilot:analyze", handleAnalyzeEvent);
+      window.removeEventListener("zypply:analyze", handleAnalyzeEvent);
     };
   }, [handleAnalyzeEvent]);
 
@@ -350,7 +350,7 @@ function JobAnalyzer() {
                 <Sparkles size={16} className="plasmo-text-white" />
               </div>
               <h2 className="plasmo-text-white plasmo-font-semibold plasmo-text-sm">
-                ApplyPilot
+                Zypply
               </h2>
             </div>
           )}
@@ -746,7 +746,7 @@ function JobAnalyzer() {
             {/* Footer */}
             <div className="plasmo-border-t plasmo-border-gray-100 plasmo-px-4 plasmo-py-2 plasmo-text-center plasmo-flex-shrink-0 plasmo-bg-gray-50">
               <p className="plasmo-text-[10px] plasmo-text-gray-400">
-                Powered by ApplyPilot AI
+                Powered by Zypply AI
               </p>
             </div>
           </>

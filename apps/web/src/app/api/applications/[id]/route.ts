@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
-import { applications, jobs, eq } from "@applypilot/shared";
+import { applications, jobs, eq } from "@zypply/shared";
 
 export async function GET(
   request: Request,

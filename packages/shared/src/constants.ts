@@ -1,5 +1,5 @@
-export const APP_NAME = "ApplyPilot";
-export const APP_DESCRIPTION = "AI-Powered Job Application Copilot";
+export const APP_NAME = "Zypply";
+export const APP_DESCRIPTION = "Your AI Career Copilot";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
 export const SUBSCRIPTION_TIERS = {

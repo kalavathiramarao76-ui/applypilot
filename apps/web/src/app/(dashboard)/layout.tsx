@@ -2,8 +2,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { verifyToken } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { profiles } from "@applypilot/shared";
-import { eq } from "@applypilot/shared";
+import { profiles } from "@zypply/shared";
+import { eq } from "@zypply/shared";
 import { DashboardShell } from "./dashboard-shell";
 
 export default async function DashboardLayout({

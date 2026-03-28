@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm --filter @applypilot/web build",
+  "buildCommand": "pnpm --filter @zypply/web build",
   "outputDirectory": "apps/web/.next",
   "installCommand": "pnpm install",
   "framework": "nextjs"
