@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npx next build",
-  "outputDirectory": ".next",
-  "installCommand": "cd ../.. && pnpm install",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm --filter @zypply/web build",
+  "outputDirectory": "apps/web/.next",
   "framework": "nextjs"
 }
