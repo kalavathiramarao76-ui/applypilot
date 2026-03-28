@@ -19,6 +19,9 @@ import {
   Mail,
   Target,
   BarChart3,
+  Sparkles,
+  ClipboardList,
+  Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,6 +35,9 @@ const navItems = [
   { href: "/emails", label: "Email Templates", icon: Mail },
   { href: "/score", label: "Resume Score", icon: Target },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/skills", label: "Skills", icon: Sparkles },
+  { href: "/reports", label: "Reports", icon: ClipboardList },
+  { href: "/timeline", label: "Timeline", icon: Clock },
   { href: "/quick-apply", label: "Quick Apply", icon: Zap },
   { href: "/company", label: "Company Intel", icon: Building2 },
   { href: "/salary", label: "Salary", icon: DollarSign },
